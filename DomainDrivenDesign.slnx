@@ -1,0 +1,9 @@
+<Solution>
+  <Folder Name="/Solution Items/">
+    <File Path="README.md" />
+  </Folder>
+  <Project Path="DomainDrivenDesign.Application/DomainDrivenDesign.Application.csproj" Id="8da9bf10-2561-44b7-a9e7-f1614b141dd6" />
+  <Project Path="DomainDrivenDesign.Domain/DomainDrivenDesign.Domain.csproj" />
+  <Project Path="DomainDrivenDesign.Infrastructure/DomainDrivenDesign.Infrastructure.csproj" Id="13a054fe-ff15-499f-8206-b4c5ffbaf235" />
+  <Project Path="DomainDrivenDesign.WebAPI/DomainDrivenDesign.WebAPI.csproj" Id="4c5b954b-3590-4366-9ce2-efac60648c8b" />
+</Solution>
