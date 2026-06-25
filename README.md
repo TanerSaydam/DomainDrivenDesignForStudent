@@ -7,3 +7,8 @@
     - [x] Factory Pattern
     - [x] Repository Pattern
     - [x] Service Pattern
+    - [x] Aggregate Pattern
+- [x] Strategic Pattern
+    - [ ] Bounded Context
+    - [ ] Context Map
+    - [x] Ubiquitous Language

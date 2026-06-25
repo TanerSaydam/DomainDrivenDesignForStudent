@@ -1,0 +1,12 @@
+﻿using DomainDrivenDesign.Domain.Abstractions;
+using DomainDrivenDesign.Domain.Users;
+
+namespace DomainDrivenDesign.Domain.Dtos;
+
+public sealed class AuditQueryableDto<T>
+    where T : Entity
+{
+    public T Entity { get; set; } = default!;
+    public User CreatedUser { get; set; } = default!;
+    public User? UpdatedUser { get; set; }
+}

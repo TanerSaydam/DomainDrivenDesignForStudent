@@ -13,7 +13,6 @@ public static class ServiceRegistrar
         {
             cfr.RegisterServicesFromAssembly(typeof(CategoryCreateCommand).Assembly);
             cfr.AddOpenBehavior(typeof(ValidationBehavior<,>));
-            cfr.AddBehavior(typeof(TCKontrolBehavior));
         });
 
         services.AddValidatorsFromAssembly(typeof(ServiceRegistrar).Assembly);

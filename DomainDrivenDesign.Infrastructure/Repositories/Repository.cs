@@ -1,4 +1,6 @@
-﻿using DomainDrivenDesign.Domain.Abstractions;
+﻿using DomainDrivenDesign.Domain;
+using DomainDrivenDesign.Domain.Abstractions;
+using DomainDrivenDesign.Domain.Dtos;
 using DomainDrivenDesign.Infrastructure.Context;
 using Microsoft.EntityFrameworkCore;
 using System.Linq.Expressions;
@@ -28,6 +30,11 @@ internal class Repository<T>(
     public IQueryable<T> GetAll()
     {
         return dbContext.Set<T>().AsQueryable();
+    }
+
+    public IQueryable<AuditQueryableDto<T>> GetAuditQueryables()
+    {
+        return dbContext.Set<T>().AsQueryable().AddAudit<T>();
     }
 
     public void Update(T entity)

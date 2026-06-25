@@ -19,20 +19,10 @@ internal sealed class CategoryGetAllPaginationQueryHandler(
     {
         var paginationRequest = request.Adapt<PaginationRequestDto>();
 
-        var data = await categoryRepository.GetAll()
-            .Where(p => request.Search == null ? true : p.Name.Value.ToLower().Contains(request.Search.ToLower()))
-            .AddAudit()
-            .Select(s => new CategoryDto()
-            {
-                Id = s.Id,
-                Name = s.Name.Value,
-                CreatedDate = s.CreatedDate,
-                CreatedUserId = s.CreatedUserId,
-                CreatedUserName = "",
-                UpdatedDate = s.UpdatedDate,
-                UpdatedUserId = s.UpdatedUserId,
-                UpdatedUserName = s.UpdatedUserId == null ? null : ""
-            })
+        var data = await categoryRepository
+            .GetAuditQueryables()
+            .Where(p => request.Search == null ? true : p.Entity.Name.Value.ToLower().Contains(request.Search.ToLower()))
+            .MapTo()
             .ToPagination(paginationRequest, cancellationToken);
 
         return data;

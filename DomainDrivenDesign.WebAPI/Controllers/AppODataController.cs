@@ -1,4 +1,6 @@
 ﻿using DomainDrivenDesign.Application.Categories;
+using DomainDrivenDesign.Application.Orders;
+using DomainDrivenDesign.Application.Products;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OData.Query;
@@ -18,6 +20,8 @@ public sealed class AppODataController(
     {
         var builder = new ODataConventionModelBuilder();
         builder.EntitySet<CategoryDto>("categories");
+        builder.EntitySet<ProductDto>("products");
+        builder.EntitySet<OrderDto>("orders");
         return builder.GetEdmModel();
     }
 
@@ -25,6 +29,23 @@ public sealed class AppODataController(
     public async Task<IQueryable<CategoryDto>> Categories(CancellationToken cancellationToken)
     {
         var res = await sender.Send(new CategoryGetAllODataQuery(), cancellationToken);
+
+        return res;
+    }
+
+
+    [HttpGet("products")]
+    public async Task<IQueryable<ProductDto>> Products(CancellationToken cancellationToken)
+    {
+        var res = await sender.Send(new ProductGetAllQuery(), cancellationToken);
+
+        return res;
+    }
+
+    [HttpGet("orders")]
+    public async Task<IQueryable<OrderDto>> Orders(CancellationToken cancellationToken)
+    {
+        var res = await sender.Send(new OrderGetAllQuery(), cancellationToken);
 
         return res;
     }

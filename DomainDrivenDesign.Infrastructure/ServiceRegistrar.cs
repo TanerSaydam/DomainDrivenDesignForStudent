@@ -1,12 +1,10 @@
 ﻿using DomainDrivenDesign.Domain.Abstractions;
-using DomainDrivenDesign.Domain.Categories;
-using DomainDrivenDesign.Domain.Products;
 using DomainDrivenDesign.Domain.Users;
 using DomainDrivenDesign.Infrastructure.Context;
-using DomainDrivenDesign.Infrastructure.Repositories;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Scrutor;
 
 namespace DomainDrivenDesign.Infrastructure;
 
@@ -29,8 +27,13 @@ public static class ServiceRegistrar
         })
             .AddEntityFrameworkStores<ApplicationDbContext>();
 
-        services.AddScoped<IProductRepository, ProductRepository>();
-        services.AddScoped<ICategoryRepository, CategoryRepository>();
+        services.Scan(action => action
+        .FromAssemblies(typeof(ServiceRegistrar).Assembly)
+        .AddClasses(publicOnly: false)
+        .UsingRegistrationStrategy(RegistrationStrategy.Skip)
+        .AsImplementedInterfaces()
+        .WithScopedLifetime()
+        );
         services.AddScoped<IUnitOfWork>(srv => srv.GetRequiredService<ApplicationDbContext>());
 
         return services;
